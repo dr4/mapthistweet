@@ -5,7 +5,8 @@ var isProdTest = false;
 var map;
 
 var listOfCities = {}
-    , stackOfTweets;
+    , stackOfTweets
+    , stackOfWindows = [];
 
 /**
  * TODO
@@ -43,6 +44,11 @@ $(function () {
 
   $('#map').on('init', function () {
     getCities();
+
+    setInterval(function () {
+      var shifted = stackOfWindows.shift();
+      shifted.close();
+    }, 2500);
   })
 
   $('#map').on('show', function () {
@@ -61,11 +67,14 @@ $(function () {
           maxWidth: 200
         });
 
+        stackOfWindows.push(infowindow);
+
         var marker = new google.maps.Marker({
           position: coords,
           map: map
         });
 
+        // TODO control timeout;
         setTimeout(function () {
           infowindow.open(map, marker);
         }, 1000 + 1000 * index);
