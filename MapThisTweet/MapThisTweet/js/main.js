@@ -4,6 +4,7 @@ var isProdTest = false;
  * create script
  * trigger
  * local src
+ * set center to china
  */
 
 $(function () {
@@ -26,8 +27,8 @@ var map;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
+    center: {lat: 34.34436, lng: 108.92035}, // xi'an
+    zoom: 5
   });
 
   $('#map').trigger('init');
