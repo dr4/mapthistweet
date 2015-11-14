@@ -19,28 +19,30 @@ namespace MapThisTweet.Controllers
 
         public IEnumerable<TweetContainer> GetAllTweets()
         {
-            if (!registered)
-            {
-                registered = true;
-                // TODO: add credentials
+            return new TweetContainer[0];
+
+            //if (!registered)
+            //{
+            //    registered = true;
+            //    // TODO: add credentials
                 
-                Stream_SampleStreamExample();
-                return new TweetContainer[0];
-            }
-            else
-            {
-                stream.StopStream();
+            //    Stream_SampleStreamExample();
+            //    return new TweetContainer[0];
+            //}
+            //else
+            //{
+            //    stream.StopStream();
 
-                var list = new List<TweetContainer>();
+            //    var list = new List<TweetContainer>();
 
-                TweetContainer tweet;
-                while(queue.TryDequeue(out tweet))
-                {
-                    list.Add(tweet);
-                }
+            //    TweetContainer tweet;
+            //    while(queue.TryDequeue(out tweet))
+            //    {
+            //        list.Add(tweet);
+            //    }
 
-                return list;
-            }
+            //    return list;
+            //}
         }
 
         public IHttpActionResult GetTweet(long id)
@@ -92,6 +94,8 @@ namespace MapThisTweet.Controllers
             public int RetweetCount { get; set; }
             public string ScreenName { get; set; }
             public string Text { get; set; }
+
+            public long CityId { get; set; }
         }
     }
 }
