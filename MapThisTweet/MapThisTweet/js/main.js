@@ -45,6 +45,7 @@ $(function () {
     url += isDev ? '.json' : '';
 
     $.getJSON(url, function (data) {
+      console.log(data);
       stackOfTweets = data;
 
       $('#map').trigger('show');
@@ -67,6 +68,7 @@ $(function () {
 
     if (stackOfTweets.length) {
       $(stackOfTweets).each(function (index, item) {
+        console.log(item);
         var cityId = item.cityId;
         var city = listOfCities[cityId];
 
@@ -79,14 +81,16 @@ $(function () {
         template += '<div class="mtt-content">';
           template += '<div class="mtt-header">';
             template += '<div class="mtt-avatar">';
-              template += '<img class="avatar" src="https://pbs.twimg.com/profile_images/3413742921/0e9ef95e76c4a965b9b177fa2267d6c1_bigger.png" alt="">';
+              template += '<img class="avatar" src="' + item.avatar + '" alt="">';
             template += '</div>';
             template += '<p>';
               template += '<strong class="mtt-fullname">';
-                template += 'Alexander Constantinopolsky'; // TODO name
+                template += item.userFullName;
+                // template += 'Alexander Constantinopolsky'; // TODO name
               template += '</strong>';
               template += '<span class="mtt-username">';
-                template += '@johnsnow'; // TODO userName
+                template += item.user;
+                // template += '@johnsnow'; // TODO userName
               template += '</span>';
             template += '</p>';
           template += '</div>';
