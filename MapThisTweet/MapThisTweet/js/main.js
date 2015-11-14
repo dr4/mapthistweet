@@ -1,4 +1,5 @@
-var DATAPATH = 'data/';
+var API = isDev ? 'data' : 'api';
+API += '/';
 
 var CLEAR_DELAY = 1800;
 
@@ -17,14 +18,16 @@ var listOfCities = {}
 
 $(function () {
 
-  function _displayInfoWindowsLower() {
+  function _displayPreviousPointsLower() {
     points.forEach(function (point) {
+      point.marker.setZIndex(3);
       point.infowindow.setZIndex(3);
     });
   }
 
   function getCities(argument) {
-    var url = isDev ? DATAPATH + 'cities.json' : 'api/citys'; // FIXME api const
+    var url = API + 'cities';
+    url += isDev ? '.json' : '';
 
     $.getJSON(url, function (data) {
       data.forEach(function (item) {
@@ -38,7 +41,8 @@ $(function () {
   }
 
   function getTweets() {
-    var url = isDev ? DATAPATH + 'tweets.json' : 'api/tweets';
+    var url = API + 'tweets';
+    url += isDev ? '.json' : '';
 
     $.getJSON(url, function (data) {
       stackOfTweets = data;
@@ -90,9 +94,11 @@ $(function () {
         // TODO control timeout;
         // TODO small size markers?
         setTimeout(function () {
-          _displayInfoWindowsLower();
+          _displayPreviousPointsLower();
 
           marker.setVisible(true);
+          marker.setZIndex(10);
+
           infowindow.setZIndex(10);
           infowindow.open(map, marker);
         }, 1000 + 1000 * index);
