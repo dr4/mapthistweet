@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using MapThisTweet.Controllers;
+using System.Web.Http;
 using System.Web.Mvc;
 
 namespace MapThisTweet
@@ -10,6 +11,8 @@ namespace MapThisTweet
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
+            CitysController.Initialize();
         }
     }
 }
