@@ -2,13 +2,15 @@ var DATAPATH = 'data/';
 
 var isProdTest = false;
 
+var map;
+
 var listOfCities
     , stackOfTweets;
 
 /**
  * TODO
  * parse places +
- * parse payload + 
+ * parse payload +
  * show balloons
  * stream
  */
@@ -29,7 +31,7 @@ $(function () {
     $.getJSON(url, function (data) {
       stackOfTweets = data;
 
-      $('#map').trigger('snow');
+      $('#map').trigger('show');
     });
   }
 
@@ -38,12 +40,41 @@ $(function () {
     getTweets();
   })
 
-  #('#map').on('show', function () {
+  $('#map').on('show', function () {
+
+    if (stackOfTweets.length) {
+
+      $(stackOfTweets).each(function (index, item) {
+        var place_id = item.place_id;
+        console.log(place_id);
+        var coords = listOfCities[place_id].location;
+        console.log(coords);
+        var content = item.tweet;
+
+        var realCoords = new google.maps.LatLng(coords.lat, coords.lng);
+
+        var infowindow = new google.maps.InfoWindow({
+          content: content,
+          maxWidth: 200
+        });
+
+        var marker = new google.maps.Marker({
+          position: realCoords,
+          map: map
+        });
+
+        setTimeout(function () {
+          infowindow.open(map, marker);
+        }, 1000 + 1000 * index);
+      })
+
+    }
+
 
   })
 })
 
-var map;
+
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
