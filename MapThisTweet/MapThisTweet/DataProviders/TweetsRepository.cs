@@ -1,6 +1,7 @@
 ﻿using MapThisTweet.Common;
 using MapThisTweet.Models;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -13,18 +14,100 @@ namespace MapThisTweet.DataProviders
 {
     public static class TweetsRepository
     {
-        private static LimitedConcurrentQueue<TweetContainer> queue = new LimitedConcurrentQueue<TweetContainer>();
+        private static LimitedConcurrentQueue<TweetContainer> defaultQueue = new LimitedConcurrentQueue<TweetContainer>();
 
-        private static IFilteredStream stream;
+        private static IFilteredStream defaultStream;
+
+        private static readonly ConcurrentDictionary<string, IFilteredStream> hashTagStreams = new ConcurrentDictionary<string, IFilteredStream>();
+        private static readonly ConcurrentDictionary<string, LimitedConcurrentQueue<TweetContainer>> hashTagQueues = new ConcurrentDictionary<string, LimitedConcurrentQueue<TweetContainer>>();
+
+        private static bool pause;
 
         public static void Start()
         {
             ConfigureTwitterCredentials();
+            defaultStream = CreateFilteredStream();
+        }
+
+        public static void Pause()
+        {
+            pause = true;
+            defaultStream.PauseStream();
+        }
+
+        public static void Resume()
+        {
+            pause = false;
+            defaultStream.ResumeStream();
+        }
+
+        public static IEnumerable<TweetContainer> SelectAll(string hashTag)
+        {
+            if(pause)
+            {
+                return new TweetContainer[0];
+            }
+
+            if (string.IsNullOrWhiteSpace(hashTag))
+            {
+                return defaultQueue.ToArray();
+            }
+            else
+            {
+                bool isNew = false;
+                LimitedConcurrentQueue<TweetContainer> hashTagQueue = hashTagQueues.GetOrAdd(hashTag, _ =>
+                {
+                    isNew = true;
+                    return new LimitedConcurrentQueue<TweetContainer>();
+                });
+
+                if (isNew)
+                {
+                    CreateHashTagFilteredStream(hashTag);
+                }
+
+                return hashTagQueue.ToArray();
+            }
+        }
+
+        private static void ConfigureTwitterCredentials()
+        {
+            NameValueCollection settings = ConfigurationManager.AppSettings;
+            string consumerKey = settings["consumerKey"];
+            string consumerSecret = settings["consumerSecret"];
+            string userAccessToken = settings["userAccessToken"];
+            string userAccessSecret = settings["userAccessSecret"];
+
+            Auth.SetUserCredentials(consumerKey, consumerSecret, userAccessToken, userAccessSecret);
+        }
+
+        private static void CreateHashTagFilteredStream(string hashTag)
+        {
+            IFilteredStream oldStream = hashTagStreams.GetOrAdd(hashTag, _ =>
+            {
+                return CreateFilteredStream(hashTag);
+            });
+        }
+
+        private static IFilteredStream CreateFilteredStream(string hashTag = null)
+        {
+            LimitedConcurrentQueue<TweetContainer> queue;
+            if(!string.IsNullOrWhiteSpace(hashTag))
+            {
+                queue = hashTagQueues.GetOrAdd(hashTag, _ =>
+                {
+                    return new LimitedConcurrentQueue<TweetContainer>();
+                });
+            }
+            else
+            {
+                queue = defaultQueue;
+            }
 
             var random = new Random();
             int maxCityId = CitiesRepository.allCityIds.Length;
 
-            stream = Stream.CreateFilteredStream();
+            var stream = Stream.CreateFilteredStream();
 
             stream.MatchingTweetReceived += (sender, args) =>
             {
@@ -35,8 +118,8 @@ namespace MapThisTweet.DataProviders
                     var tweetContainer = new TweetContainer
                     {
                         CreatedAt = tweet.CreatedAt,
-                        User = user.Name,
-                        UserFullName = user.ScreenName,
+                        User = user.ScreenName,
+                        UserFullName = user.Name,
                         Avatar = user.ProfileImageUrl,
                         Id = tweet.Id,
                         RetweetCount = tweet.RetweetCount,
@@ -49,35 +132,16 @@ namespace MapThisTweet.DataProviders
             };
 
             stream.AddTweetLanguageFilter(Language.English);
-            stream.AddTrack("china");
+
+            string track = !string.IsNullOrWhiteSpace(hashTag)
+                ? string.Format("china {0}", hashTag)
+                : "china";
+
+            stream.AddTrack(track);
 
             stream.StartStreamMatchingAllConditionsAsync();
-        }
 
-        public static void Pause()
-        {
-            stream.PauseStream();
-        }
-
-        public static void Resume()
-        {
-            stream.ResumeStream();
-        }
-
-        public static IEnumerable<TweetContainer> SelectAll(string hashTag)
-        {
-            return queue.ToArray();
-        }
-
-        private static void ConfigureTwitterCredentials()
-        {
-            NameValueCollection settings = ConfigurationManager.AppSettings;
-            string consumerKey = settings["consumerKey"];
-            string consumerSecret = settings["consumerSecret"];
-            string userAccessToken = settings["userAccessToken"];
-            string userAccessSecret = settings["userAccessSecret"];
-
-            Auth.SetUserCredentials(consumerKey, consumerSecret, userAccessToken, userAccessSecret);
+            return stream;
         }
     }
 }
