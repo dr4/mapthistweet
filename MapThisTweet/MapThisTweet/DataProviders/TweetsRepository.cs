@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Configuration;
 using Tweetinvi;
 using Tweetinvi.Core.Enum;
+using Tweetinvi.Core.Interfaces;
 using Tweetinvi.Core.Interfaces.Streaminvi;
 
 namespace MapThisTweet.DataProviders
@@ -30,10 +31,13 @@ namespace MapThisTweet.DataProviders
                 var tweet = args.Tweet;
                 if (!tweet.IsRetweet)
                 {
+                    IUser user = tweet.CreatedBy;
                     var tweetContainer = new TweetContainer
                     {
                         CreatedAt = tweet.CreatedAt,
-                        ScreenName = tweet.CreatedBy.ScreenName,
+                        User = user.Name,
+                        UserFullName = user.ScreenName,
+                        Avatar = user.ProfileImageUrl,
                         Id = tweet.Id,
                         RetweetCount = tweet.RetweetCount,
                         Text = tweet.Text,
