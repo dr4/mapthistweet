@@ -1,26 +1,14 @@
 [
   {
-    "id": 12312,
+    "place_id": 100000,
     "tweet": "You had to see all those ideas and projects done at #epamhack in just 24hours. Kudos to participants and the org team!"
   },
   {
-    "id": 12312,
+    "place_id": 100001,
     "tweet": "You had to see all those ideas and projects done at #epamhack in just 24hours. Kudos to participants and the org team!"
   },
   {
-    "id": 12312,
-    "tweet": "You had to see all those ideas and projects done at #epamhack in just 24hours. Kudos to participants and the org team!"
-  },
-  {
-    "id": 12312,
-    "tweet": "You had to see all those ideas and projects done at #epamhack in just 24hours. Kudos to participants and the org team!"
-  },
-  {
-    "id": 12312,
-    "tweet": "You had to see all those ideas and projects done at #epamhack in just 24hours. Kudos to participants and the org team!"
-  },
-  {
-    "id": 12312,
+    "place_id": 100002,
     "tweet": "You had to see all those ideas and projects done at #epamhack in just 24hours. Kudos to participants and the org team!"
   }
 ]

@@ -2,48 +2,40 @@ var DATAPATH = 'data/';
 
 var isProdTest = false;
 
+var listOfCities
+    , stackOfTweets;
+
 /**
  * TODO
- * parse places
- * parse payload
+ * parse places +
+ * parse payload + 
  * show balloons
- *
+ * stream
  */
 
 $(function () {
-  // example of response
 
-  // [
-  //   {
-  //     'id': '123', // place_id
-  //     'tweet': '', // html
-  //   },
-  //   ...
-  // ]
+  function getCities(argument) {
+    var url = isDev ? DATAPATH + 'cities.json' : 'citys';
 
-  function getRequestUrl() {
-    var url = '';
-
-    if (isDev) {
-      url += DATAPATH + 'tweets.json'
-    } else {
-      url += 'tweets'
-    }
-
-    return url;
+    $.getJSON(url, function (data) {
+      listOfCities = data;
+    })
   }
 
-  function requestData() {
-    var requestUrl = getRequestUrl();
+  function getTweets() {
+    var url = isDev ? DATAPATH + 'tweets.json' : 'tweets';
 
-    $.getJSON(requestUrl, function (data) {
-      // show data with setTimeout
+    $.getJSON(url, function (data) {
+      stackOfTweets = data;
 
+      $('#map').trigger('snow');
     });
   }
 
   $('#map').on('init', function () {
-    requestData();
+    getCities();
+    getTweets();
   })
 
   #('#map').on('show', function () {
