@@ -113,10 +113,38 @@ $(function () {
 
 
 function initMap() {
+  // var customMapType = new google.maps.StyledMapType([
+  //     {
+  //       stylers: [
+  //         {hue: '#890000'},
+  //         {visibility: 'simplified'},
+  //         {gamma: 0.5},
+  //         {weight: 0.5}
+  //       ]
+  //     },
+  //     {
+  //       elementType: 'labels',
+  //       stylers: [{visibility: 'off'}]
+  //     },
+  //     {
+  //       featureType: 'water',
+  //       stylers: [{color: '#890000'}]
+  //     }
+  //   ], {
+  //     name: 'Custom Style'
+  // });
+  // var customMapTypeId = 'custom_style';
+
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 34.34436, lng: 108.92035}, // xi'an
-    zoom: 5
+    zoom: 5,
+    mapTypeControlOptions: {
+      mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
+    }
   });
+
+  // map.mapTypes.set(customMapTypeId, customMapType);
+  // map.setMapTypeId(customMapTypeId);
 
   $('#map').trigger('init');
 }
