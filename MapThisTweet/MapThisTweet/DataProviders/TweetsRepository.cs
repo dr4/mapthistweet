@@ -1,8 +1,7 @@
-﻿using MapThisTweet.Models;
+﻿using MapThisTweet.Common;
+using MapThisTweet.Models;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Threading;
 using Tweetinvi;
 using Tweetinvi.Core.Enum;
 using Tweetinvi.Core.Interfaces.Streaminvi;
@@ -11,13 +10,13 @@ namespace MapThisTweet.DataProviders
 {
     public static class TweetsRepository
     {
-        private static ConcurrentQueue<TweetContainer> queue = new ConcurrentQueue<TweetContainer>();
+        private static LimitedConcurrentQueue<TweetContainer> queue = new LimitedConcurrentQueue<TweetContainer>();
 
         private static IFilteredStream stream;
 
         public static void Start()
         {
-            // REPLACE WITH Auth
+            // Add AUTH
 
             var random = new Random();
             int maxCityId = CitiesRepository.allCityIds.Length;
@@ -61,8 +60,7 @@ namespace MapThisTweet.DataProviders
 
         public static IEnumerable<TweetContainer> SelectAll()
         {
-            ConcurrentQueue<TweetContainer> tweets = Interlocked.Exchange(ref queue, new ConcurrentQueue<TweetContainer>());
-            return tweets.ToArray();
+            return queue.ToArray();
         }
     }
 }

@@ -225,6 +225,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\LimitedConcurrentQueue.cs" />
     <Compile Include="Controllers\CitysController.cs" />
     <Compile Include="Controllers\LifecycleController.cs" />
     <Compile Include="Controllers\TweetsController.cs" />
