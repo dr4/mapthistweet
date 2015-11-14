@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapThisTweet", "MapThisTweet\MapThisTweet.csproj", "{34EA6693-E576-4D5E-A071-D67E4087974C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapThisTweet.Tests", "MapThisTweet.Tests\MapThisTweet.Tests.csproj", "{BDA531AC-944D-42FE-9CE2-EF7CFE2D58DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{BBE1B2BC-277D-4DB0-9A56-038D5245D25E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{4C575078-D0D5-4F7E-B023-D7FA00B4DD0B}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{E8F98B8B-9B79-47A5-B0DE-82494207CF22}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\MapThisTweet.json = PublishScripts\Templates\MapThisTweet.json
+		PublishScripts\Templates\MapThisTweet.param.dev.json = PublishScripts\Templates\MapThisTweet.param.dev.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34EA6693-E576-4D5E-A071-D67E4087974C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EA6693-E576-4D5E-A071-D67E4087974C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34EA6693-E576-4D5E-A071-D67E4087974C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34EA6693-E576-4D5E-A071-D67E4087974C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDA531AC-944D-42FE-9CE2-EF7CFE2D58DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDA531AC-944D-42FE-9CE2-EF7CFE2D58DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDA531AC-944D-42FE-9CE2-EF7CFE2D58DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDA531AC-944D-42FE-9CE2-EF7CFE2D58DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4C575078-D0D5-4F7E-B023-D7FA00B4DD0B} = {BBE1B2BC-277D-4DB0-9A56-038D5245D25E}
+		{E8F98B8B-9B79-47A5-B0DE-82494207CF22} = {BBE1B2BC-277D-4DB0-9A56-038D5245D25E}
+	EndGlobalSection
+EndGlobal
