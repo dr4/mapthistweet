@@ -8,3 +8,33 @@ html, body {
 #map {
   height: 100%;
 }
+
+.mtt-content {
+  position: relative;
+  margin-left: 58px;
+}
+
+.mtt-header {
+
+}
+
+.mtt-avatar {
+  position: absolute;
+  margin-left: -58px;
+}
+
+.mtt-avatar img {
+  width: 48px;
+  height: 48px;
+  border-radius: 5px;
+}
+
+.mtt-fullname {
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.mtt-username {
+  display: inline-block;
+  color: #8899a6;
+}

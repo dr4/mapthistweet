@@ -74,9 +74,33 @@ $(function () {
         var content = item.text;
         var coords = new google.maps.LatLng(location.lat, location.lng);
 
+        var template = '';
+
+        template += '<div class="mtt-content">';
+          template += '<div class="mtt-header">';
+            template += '<div class="mtt-avatar">';
+              template += '<img class="avatar" src="https://pbs.twimg.com/profile_images/3413742921/0e9ef95e76c4a965b9b177fa2267d6c1_bigger.png" alt="">';
+            template += '</div>';
+            template += '<p>';
+              template += '<strong class="mtt-fullname">';
+                template += 'Alexander Constantinopolsky'; // TODO name
+              template += '</strong>';
+              template += '<span class="mtt-username">';
+                template += '@johnsnow'; // TODO userName
+              template += '</span>';
+            template += '</p>';
+          template += '</div>';
+          template += '<div class="mtt-body">';
+            template += '<p>';
+              template += content;
+            template += '</p>';
+          template += '</div>';
+
+        template += '</div>';
+
         var infowindow = new google.maps.InfoWindow({
-          content: content,
-          maxWidth: 200
+          content: template,
+          maxWidth: 300
         });
 
         var marker = new google.maps.Marker({
