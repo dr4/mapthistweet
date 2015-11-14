@@ -1,4 +1,6 @@
-var isDev = true;
+var isDev = location.host !== '' ? false : true;
+
+var isProdTest = false;
 
 $(function () {
   console.log('test jquery');
@@ -12,5 +14,4 @@ $(function () {
       console.log('tweets', res);
     })
   }
-
 })
