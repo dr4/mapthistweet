@@ -26,6 +26,8 @@ $(function () {
 
         listOfCities[cityId] = item;
       });
+
+      getTweets();
     })
   }
 
@@ -41,7 +43,6 @@ $(function () {
 
   $('#map').on('init', function () {
     getCities();
-    getTweets();
   })
 
   $('#map').on('show', function () {
@@ -51,26 +52,25 @@ $(function () {
         var cityId = item.cityId;
         var city = listOfCities[cityId];
 
-        if (cityId && city) {
-          var location = city['location'];
-          var content = item.text;
-          var coords = new google.maps.LatLng(location.lat, location.lng);
+        var location = city['location'];
+        var content = item.text;
+        var coords = new google.maps.LatLng(location.lat, location.lng);
 
-          var infowindow = new google.maps.InfoWindow({
-            content: content,
-            maxWidth: 200
-          });
+        var infowindow = new google.maps.InfoWindow({
+          content: content,
+          maxWidth: 200
+        });
 
-          var marker = new google.maps.Marker({
-            position: coords,
-            map: map
-          });
+        var marker = new google.maps.Marker({
+          position: coords,
+          map: map
+        });
 
-          setTimeout(function () {
-            infowindow.open(map, marker);
-          }, 1000 + 1000 * index);
-        }
-      })
+        setTimeout(function () {
+          infowindow.open(map, marker);
+        }, 1000 + 1000 * index);
+
+      }
 
     }
 
