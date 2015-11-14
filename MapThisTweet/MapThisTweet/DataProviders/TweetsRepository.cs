@@ -60,7 +60,7 @@ namespace MapThisTweet.DataProviders
             stream.ResumeStream();
         }
 
-        public static IEnumerable<TweetContainer> SelectAll()
+        public static IEnumerable<TweetContainer> SelectAll(string hashTag)
         {
             return queue.ToArray();
         }
