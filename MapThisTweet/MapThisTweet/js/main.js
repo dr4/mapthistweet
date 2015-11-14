@@ -26,8 +26,6 @@ $(function () {
 
         listOfCities[cityId] = item;
       });
-
-      console.log(listOfCities);
     })
   }
 
@@ -49,16 +47,12 @@ $(function () {
   $('#map').on('show', function () {
 
     if (stackOfTweets.length) {
-      console.log('tweet');
-
       $(stackOfTweets).each(function (index, item) {
-
-        console.log(index);
         var cityId = item.cityId;
-        var coords = listOfCities[cityId]['location'];
+        var location = listOfCities[cityId]['location'];
         var content = item.text;
 
-        var realCoords = new google.maps.LatLng(coords.lat, coords.lng);
+        var coords = new google.maps.LatLng(location.lat, location.lng);
 
         var infowindow = new google.maps.InfoWindow({
           content: content,
@@ -66,7 +60,7 @@ $(function () {
         });
 
         var marker = new google.maps.Marker({
-          position: realCoords,
+          position: coords,
           map: map
         });
 
