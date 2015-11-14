@@ -4,7 +4,7 @@ var isProdTest = false;
 
 var map;
 
-var listOfCities
+var listOfCities = {}
     , stackOfTweets;
 
 /**
@@ -21,7 +21,13 @@ $(function () {
     var url = isDev ? DATAPATH + 'cities.json' : 'citys';
 
     $.getJSON(url, function (data) {
-      listOfCities = data;
+      data.forEach(function (item) {
+        var cityId = item.id;
+
+        listOfCities[cityId] = item;
+      });
+
+      console.log(listOfCities);
     })
   }
 
@@ -43,13 +49,14 @@ $(function () {
   $('#map').on('show', function () {
 
     if (stackOfTweets.length) {
+      console.log('tweet');
 
       $(stackOfTweets).each(function (index, item) {
-        var place_id = item.place_id;
-        console.log(place_id);
-        var coords = listOfCities[place_id].location;
-        console.log(coords);
-        var content = item.tweet;
+
+        console.log(index);
+        var cityId = item.cityId;
+        var coords = listOfCities[cityId]['location'];
+        var content = item.text;
 
         var realCoords = new google.maps.LatLng(coords.lat, coords.lng);
 
