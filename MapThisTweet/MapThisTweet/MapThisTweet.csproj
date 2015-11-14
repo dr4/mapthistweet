@@ -244,6 +244,7 @@
     <Content Include="data\cities-1447495410782.json" />
     <Content Include="data\test.json" />
     <Content Include="data\tweets.json" />
+    <Content Include="data\cities.json" />
     <None Include="Properties\PublishProfiles\MapThisTweet.pubxml" />
     <Content Include="js\jquery.js" />
     <Content Include="js\jquery.min.js" />
