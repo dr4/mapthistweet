@@ -89,7 +89,7 @@ $(function () {
                 // template += 'Alexander Constantinopolsky'; // TODO name
               template += '</strong>';
               template += '<span class="mtt-username">';
-                template += item.user;
+                template += '@' + item.user;
                 // template += '@johnsnow'; // TODO userName
               template += '</span>';
             template += '</p>';
