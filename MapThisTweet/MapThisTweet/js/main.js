@@ -70,8 +70,7 @@ $(function () {
           infowindow.open(map, marker);
         }, 1000 + 1000 * index);
 
-      }
-
+      });
     }
 
 
