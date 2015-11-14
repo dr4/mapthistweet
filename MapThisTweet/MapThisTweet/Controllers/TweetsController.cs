@@ -1,23 +1,24 @@
-﻿using MapThisTweet.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Tweetinvi;
 
 namespace MapThisTweet.Controllers
 {
     public class TweetsController : ApiController
     {
-        private static Tweet[] tweets =
+        private static Models.Tweet[] tweets =
         {
-            new Tweet { Id = 1, Title = "First" },
-            new Tweet { Id = 2, Title = "Second" },
-            new Tweet { Id = 3, Title = "Third" }
+            new Models.Tweet { Id = 1, Title = "First" },
+            new Models.Tweet { Id = 2, Title = "Second" },
+            new Models.Tweet { Id = 3, Title = "Third" }
         };
-        public IEnumerable<Tweet> GetAllTweets()
+        public IEnumerable<Models.Tweet> GetAllTweets()
         {
+            Auth.SetUserCredentials("CONSUMER_KEY", "CONSUMER_SECRET", "ACCESS_TOKEN", "ACCESS_TOKEN_SECRET");
             return tweets;
         }
 
