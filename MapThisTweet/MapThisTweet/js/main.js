@@ -1,7 +1,7 @@
 var API = isDev ? 'data' : 'api';
 API += '/';
 
-var CLEAR_DELAY = 1800;
+var CLEAR_DELAY = 2800;
 
 var isProdTest = false;
 
@@ -9,12 +9,8 @@ var map;
 
 var listOfCities = {}
     , stackOfTweets
-    , points = [];
-
-/**
- * TODO
- * stream
- */
+    , points = []
+    , tweetIds = {};
 
 $(function () {
 
@@ -23,6 +19,48 @@ $(function () {
       point.marker.setZIndex(3);
       point.infowindow.setZIndex(3);
     });
+  }
+
+  function _isTweetExist(tweetId) {
+    var result = false;
+
+    points.forEach(function (point) {
+      if (point.tweet === point) {
+        result = true;
+      }
+    });
+
+    return result;
+  }
+
+  function _getTemplate(tweet, content) {
+    var template = '';
+
+    template += '<div class="mtt-content">';
+      template += '<div class="mtt-header">';
+        template += '<div class="mtt-avatar">';
+          template += '<img class="avatar" src="' + tweet.avatar + '" alt="">';
+        template += '</div>';
+        template += '<p>';
+          template += '<strong class="mtt-fullname">';
+            template += tweet.userFullName;
+            // template += 'Alexander Constantinopolsky'; // TODO name
+          template += '</strong>';
+          template += '<span class="mtt-username">';
+            template += '@' + tweet.user;
+            // template += '@johnsnow'; // TODO userName
+          template += '</span>';
+        template += '</p>';
+      template += '</div>';
+      template += '<div class="mtt-body">';
+        template += '<p>';
+          template += tweet.text;
+        template += '</p>';
+      template += '</div>';
+
+    template += '</div>';
+
+    return template;
   }
 
   function getCities(argument) {
@@ -45,7 +83,6 @@ $(function () {
     url += isDev ? '.json' : '';
 
     $.getJSON(url, function (data) {
-      console.log(data);
       stackOfTweets = data;
 
       $('#map').trigger('show');
@@ -60,6 +97,10 @@ $(function () {
         var shifted = points.shift();
         shifted.infowindow.close();
         shifted.marker.setMap(null);
+
+        if (points.length < 3) {
+          getTweets();
+        }
       }
     }, CLEAR_DELAY);
   })
@@ -67,40 +108,20 @@ $(function () {
   $('#map').on('show', function () {
 
     if (stackOfTweets.length) {
-      $(stackOfTweets).each(function (index, item) {
-        console.log(item);
-        var cityId = item.cityId;
+      $(stackOfTweets).each(function (index, tweet) {
+
+        if (!_isTweetExist()) {
+
+        }
+
+        var cityId = tweet.cityId;
         var city = listOfCities[cityId];
 
         var location = city['location'];
-        var content = item.text;
+
         var coords = new google.maps.LatLng(location.lat, location.lng);
 
-        var template = '';
-
-        template += '<div class="mtt-content">';
-          template += '<div class="mtt-header">';
-            template += '<div class="mtt-avatar">';
-              template += '<img class="avatar" src="' + item.avatar + '" alt="">';
-            template += '</div>';
-            template += '<p>';
-              template += '<strong class="mtt-fullname">';
-                template += item.userFullName;
-                // template += 'Alexander Constantinopolsky'; // TODO name
-              template += '</strong>';
-              template += '<span class="mtt-username">';
-                template += '@' + item.user;
-                // template += '@johnsnow'; // TODO userName
-              template += '</span>';
-            template += '</p>';
-          template += '</div>';
-          template += '<div class="mtt-body">';
-            template += '<p>';
-              template += content;
-            template += '</p>';
-          template += '</div>';
-
-        template += '</div>';
+        var template = _getTemplate(tweet);
 
         var infowindow = new google.maps.InfoWindow({
           content: template,
@@ -115,12 +136,12 @@ $(function () {
 
         points.push({
           marker: marker,
-          infowindow: infowindow
+          infowindow: infowindow,
+          tweet: tweet.id
         });
 
 
         // TODO control timeout;
-        // TODO small size markers?
         setTimeout(function () {
           _displayPreviousPointsLower();
 
@@ -129,17 +150,14 @@ $(function () {
 
           infowindow.setZIndex(10);
           infowindow.open(map, marker);
-        }, 1000 + 1000 * index);
+        }, CLEAR_DELAY + 1000 * index);
 
       });
     }
-
-
   })
 })
 
-
-
+// TODO move
 function initMap() {
   // var customMapType = new google.maps.StyledMapType([
   //     {
