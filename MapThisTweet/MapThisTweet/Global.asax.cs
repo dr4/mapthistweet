@@ -1,4 +1,4 @@
-﻿using MapThisTweet.Controllers;
+﻿using MapThisTweet.DataProviders;
 using System.Web.Http;
 using System.Web.Mvc;
 
@@ -12,7 +12,8 @@ namespace MapThisTweet
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
-            CitysController.Initialize();
+            CitiesRepository.Start();
+            TweetsRepository.Start();
         }
     }
 }
