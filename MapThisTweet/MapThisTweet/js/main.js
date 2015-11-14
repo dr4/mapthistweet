@@ -137,10 +137,10 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 34.34436, lng: 108.92035}, // xi'an
-    zoom: 5,
-    mapTypeControlOptions: {
-      mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
-    }
+    zoom: 5
+    // , mapTypeControlOptions: {
+    //   mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
+    // }
   });
 
   // map.mapTypes.set(customMapTypeId, customMapType);
