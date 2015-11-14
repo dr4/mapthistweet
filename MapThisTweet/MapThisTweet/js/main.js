@@ -106,22 +106,14 @@ $(function () {
   })
 
   $('#map').on('show', function () {
+    $(stackOfTweets).each(function (index, tweet) {
 
-    if (stackOfTweets.length) {
-      $(stackOfTweets).each(function (index, tweet) {
-
-        if (!_isTweetExist()) {
-
-        }
-
-        var cityId = tweet.cityId;
-        var city = listOfCities[cityId];
-
-        var location = city['location'];
-
-        var coords = new google.maps.LatLng(location.lat, location.lng);
-
-        var template = _getTemplate(tweet);
+      if (!_isTweetExist()) {
+        var cityId = tweet.cityId
+            , city = listOfCities[cityId]
+            , location = city['location']
+            , coords = new google.maps.LatLng(location.lat, location.lng)
+            , template = _getTemplate(tweet);
 
         var infowindow = new google.maps.InfoWindow({
           content: template,
@@ -140,7 +132,6 @@ $(function () {
           tweet: tweet.id
         });
 
-
         // TODO control timeout;
         setTimeout(function () {
           _displayPreviousPointsLower();
@@ -151,9 +142,8 @@ $(function () {
           infowindow.setZIndex(10);
           infowindow.open(map, marker);
         }, CLEAR_DELAY + 1000 * index);
-
-      });
-    }
+      }
+    });
   })
 })
 
