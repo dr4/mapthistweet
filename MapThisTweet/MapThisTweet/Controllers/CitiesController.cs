@@ -5,8 +5,9 @@ using System.Web.Http;
 
 namespace MapThisTweet.Controllers
 {
-    public class CitysController : ApiController
+    public class CitiesController : ApiController
     {
+        [HttpGet, Route("api/cities")]
         public IEnumerable<CityContainer> GetAllCitys()
         {
             return CitiesRepository.SelectAll();
