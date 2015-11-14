@@ -30,6 +30,7 @@ namespace MapThisTweet.DataProviders
                                           ChineseName = c.ChineseName,
                                           Location = c.Results[0].Geometry.Location
                                       })
+                                      .Where(c => c.Location != null)
                                       .ToArray();
             }
 
