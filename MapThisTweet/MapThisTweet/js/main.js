@@ -1,25 +1,30 @@
 var DATAPATH = 'data/';
 
+var CLEAR_DELAY = 1800;
+
 var isProdTest = false;
 
 var map;
 
 var listOfCities = {}
     , stackOfTweets
-    , stackOfWindows = [];
+    , points = [];
 
 /**
  * TODO
- * parse places +
- * parse payload +
- * show balloons
  * stream
  */
 
 $(function () {
 
+  function _displayInfoWindowsLower() {
+    points.forEach(function (point) {
+      point.infowindow.setZIndex(3);
+    });
+  }
+
   function getCities(argument) {
-    var url = isDev ? DATAPATH + 'cities.json' : 'api/citys';
+    var url = isDev ? DATAPATH + 'cities.json' : 'api/citys'; // FIXME api const
 
     $.getJSON(url, function (data) {
       data.forEach(function (item) {
@@ -45,10 +50,13 @@ $(function () {
   $('#map').on('init', function () {
     getCities();
 
-    setInterval(function () {
-      var shifted = stackOfWindows.shift();
-      shifted.close();
-    }, 2500);
+    setInterval(function () { // clear up
+      if (points.length) {
+        var shifted = points.shift();
+        shifted.infowindow.close();
+        shifted.marker.setMap(null);
+      }
+    }, CLEAR_DELAY);
   })
 
   $('#map').on('show', function () {
@@ -67,15 +75,25 @@ $(function () {
           maxWidth: 200
         });
 
-        stackOfWindows.push(infowindow);
-
         var marker = new google.maps.Marker({
           position: coords,
-          map: map
+          map: map,
+          visible: false
         });
 
+        points.push({
+          marker: marker,
+          infowindow: infowindow
+        });
+
+
         // TODO control timeout;
+        // TODO small size markers?
         setTimeout(function () {
+          _displayInfoWindowsLower();
+
+          marker.setVisible(true);
+          infowindow.setZIndex(10);
           infowindow.open(map, marker);
         }, 1000 + 1000 * index);
 
