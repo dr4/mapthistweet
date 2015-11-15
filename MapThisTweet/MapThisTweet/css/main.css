@@ -3,6 +3,11 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: brown;
+
+}
+
+body {
+  background: url('../images/china.png') 0 0 no-repeat;
 }
 
 #map {
