@@ -8,9 +8,10 @@ var isProdTest = false;
 var map;
 
 var listOfCities = {}
-    , stackOfTweets
+    , stackOfTweets = []
     , points = []
-    , tweetIds = {};
+    , tweetIds = {}
+    , timeoutQue = [];
 
 $(function () {
 
@@ -85,29 +86,41 @@ $(function () {
     url += isDev ? '.json' : '';
 
     $.getJSON(url, function (data) {
-      stackOfTweets = data;
+
+      stackOfTweets = stackOfTweets.concat(data);
 
       $('#map').trigger('show');
     });
   }
 
+  var intervalCount = 0;
+
   $('#map').on('init', function () {
     getCities();
 
     setInterval(function () { // clear up
+      // count += 1;
+
       if (points.length) {
         var shifted = points.shift();
         shifted.infowindow.close();
         shifted.marker.setMap(null);
 
-        if (points.length < 3) {
+        // if (intervalCount > 3) {
+        //   intervalCount = 0;
+        if (points < 3) {
           getTweets();
         }
+        // }
       }
     }, CLEAR_DELAY);
   })
 
   $('#map').on('show', function () {
+    // timeoutQue.forEach(function (timeoutID) {
+    //   window.clearTimeout(timeoutID);
+    // });
+
     $(stackOfTweets).each(function (index, tweet) {
 
       if (!_isTweetExist()) {
@@ -135,7 +148,7 @@ $(function () {
         });
 
         // TODO control timeout;
-        setTimeout(function () {
+        var timeoutID = setTimeout(function () {
           _displayPreviousPointsLower();
 
           marker.setVisible(true);
@@ -143,7 +156,9 @@ $(function () {
 
           infowindow.setZIndex(10);
           infowindow.open(map, marker);
-        }, CLEAR_DELAY + 1000 * index);
+        }, CLEAR_DELAY + 2000 * index);
+
+        timeoutQue.push(timeoutID);
       }
     });
   })
