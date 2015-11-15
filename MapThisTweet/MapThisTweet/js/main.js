@@ -36,7 +36,9 @@ $(function () {
   function _getTemplate(tweet, content) {
     var template = '';
 
-    template += '<div class="mtt-content">';
+    var important = tweet.isImportant ? 'mtt-content-important' : '';
+
+    template += '<div class="mtt-content ' + important + '">';
       template += '<div class="mtt-header">';
         template += '<div class="mtt-avatar">';
           template += '<img class="avatar" src="' + tweet.avatar + '" alt="">';
