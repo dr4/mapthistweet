@@ -244,6 +244,7 @@
     <Content Include="css\main.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="images\china.png" />
     <Content Include="index.html" />
     <Content Include="js\jquery.min.map" />
     <Content Include="data\cities-1447495410782.json" />

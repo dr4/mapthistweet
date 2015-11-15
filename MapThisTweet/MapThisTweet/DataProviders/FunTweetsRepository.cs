@@ -81,14 +81,17 @@ namespace MapThisTweet.DataProviders
             "IF IT WAS A MOVIE ILL GIVE A FIVE STARS",
             "ABSOLUTELY STUNNING",
             "PLEASE HIRE ME",
-            "WHERE I CAN BUT EPAM SHARES?",
+            "WHERE I CAN BUY EPAM SHARES?",
             "LOL",
             "SEE YOU ON #EPAM SEC IN #Philadelphia",
             "I WHAT TO THANK YOU FOR THIS WONDERFUL EVENT",
-            "Andrey Bodoev and Dzmitry Radhanka are THE BEST. GIVE THEM 100 of 100!",
+            "ANDREY BODOEV and DZMITRY RADCHANKA are THE BEST. GIVE THEM 100 of 100!",
             "WOW, SO MANY SENIOR ENGINEERS HERE I FEEL HOT",
             "THE BEST IT EVENT OF THE YEAR!",
-            "CAN YOU BUILD ME A WEBSITE??"
+            "CAN YOU BUILD ME A WEBSITE??",
+            "HI 2 ALL in #Shenzhen!",
+            "HOPE ALL OF YOU HAVE FUN WITH THIS WONDERFUL TEAM",
+            "WHY ARE YOU IGNORING ME?!"
         };
 
         private static readonly string[] speakers =

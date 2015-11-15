@@ -138,6 +138,7 @@ namespace MapThisTweet.DataProviders
                 : "china";
 
             stream.AddTrack(track);
+            stream.AddTrack("epamhackfest");
 
             stream.StartStreamMatchingAllConditionsAsync();
 
