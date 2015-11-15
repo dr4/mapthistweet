@@ -74,17 +74,17 @@ namespace MapThisTweet.DataProviders
 
         public static readonly string[] texts =
         {
-            "DAMN, is AWESOME",
+            "DAMN, YOU are AWESOME",
             "PURE AWESOMENESS",
             "SUPERB AS USUAL",
             "JUST BRILLIANT",
-            "IF IT WAS A MOVIE ILL GIVE A FIVE STARS",
+            "IF IT WAS A MOVIE I WOULD GIVE FIVE STARS",
             "ABSOLUTELY STUNNING",
             "PLEASE HIRE ME",
-            "WHERE I CAN BUY EPAM SHARES?",
+            "WHERE CAN I BUY EPAM SHARES?",
             "LOL",
             "SEE YOU ON #EPAM SEC IN #Philadelphia",
-            "I WHAT TO THANK YOU FOR THIS WONDERFUL EVENT",
+            "I WANT TO THANK YOU FOR THIS WONDERFUL EVENT",
             "ANDREY BODOEV and DZMITRY RADCHANKA are THE BEST. GIVE THEM 100 of 100!",
             "WOW, SO MANY SENIOR ENGINEERS HERE I FEEL HOT",
             "THE BEST IT EVENT OF THE YEAR!",
