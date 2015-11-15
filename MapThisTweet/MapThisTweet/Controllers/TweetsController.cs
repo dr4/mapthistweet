@@ -7,10 +7,19 @@ namespace MapThisTweet.Controllers
 {
     public class TweetsController : ApiController
     {
+        public static bool IsFun { get; set; }
+
         [HttpGet, Route("api/tweets/{hashTag}")]
         public IEnumerable<TweetContainer> GetTweets(string hashTag = null)
         {
-            return TweetsRepository.SelectAll(hashTag);
+            if (!IsFun)
+            {
+                return TweetsRepository.Select(hashTag);
+            }
+            else
+            {
+                return FunTweetsRepository.Select();
+            }
         }
 
         [HttpGet, Route("api/tweets")]

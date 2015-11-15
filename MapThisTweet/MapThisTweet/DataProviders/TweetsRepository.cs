@@ -41,7 +41,7 @@ namespace MapThisTweet.DataProviders
             defaultStream.ResumeStream();
         }
 
-        public static IEnumerable<TweetContainer> SelectAll(string hashTag)
+        public static IEnumerable<TweetContainer> Select(string hashTag)
         {
             if(pause)
             {

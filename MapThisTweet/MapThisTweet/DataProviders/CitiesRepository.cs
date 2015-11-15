@@ -9,7 +9,7 @@ namespace MapThisTweet.DataProviders
 {
     public static class CitiesRepository
     {
-        public static CityContainer[] allCities;
+        private static CityContainer[] allCities;
         public static long[] allCityIds;
 
         public static void Start()

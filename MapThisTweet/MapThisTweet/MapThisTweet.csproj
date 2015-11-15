@@ -230,6 +230,7 @@
     <Compile Include="Controllers\LifecycleController.cs" />
     <Compile Include="Controllers\TweetsController.cs" />
     <Compile Include="DataProviders\CitiesRepository.cs" />
+    <Compile Include="DataProviders\FunTweetsRepository.cs" />
     <Compile Include="DataProviders\TweetsRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
