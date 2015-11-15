@@ -41,7 +41,7 @@ namespace MapThisTweet.DataProviders
             defaultStream.ResumeStream();
         }
 
-        public static IEnumerable<TweetContainer> SelectAll(string hashTag)
+        public static IEnumerable<TweetContainer> Select(string hashTag)
         {
             if(pause)
             {
@@ -138,6 +138,7 @@ namespace MapThisTweet.DataProviders
                 : "china";
 
             stream.AddTrack(track);
+            stream.AddTrack("epamhackfest");
 
             stream.StartStreamMatchingAllConditionsAsync();
 

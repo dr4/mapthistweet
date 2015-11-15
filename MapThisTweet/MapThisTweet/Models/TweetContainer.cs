@@ -28,5 +28,8 @@ namespace MapThisTweet.Models
 
         [JsonProperty(PropertyName = "cityId")]
         public long CityId { get; set; }
+
+        [JsonProperty(PropertyName = "isImportant")]
+        public bool IsImportant { get; set; }
     }
 }

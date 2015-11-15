@@ -19,5 +19,12 @@ namespace MapThisTweet.Controllers
 
             return start ? "RESUMED" : "PAUSED";
         }
+
+        [HttpGet, Route("api/demo/{fun}")]
+        public string SetFun(bool fun)
+        {
+            TweetsController.IsFun = fun;
+            return fun ? "FUN" : "GENERAL";
+        }
     }
 }
